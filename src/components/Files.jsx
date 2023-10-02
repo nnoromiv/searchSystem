@@ -1,18 +1,27 @@
 import { Button, Container, Form, FormControl } from 'react-bootstrap';
 import { useState } from 'react';
 import styled from 'styled-components';
-import JsonData from '../data.json'
+import JsonData from '../_data.json'
 
-const IMAGE = styled.img`
+const IMAGEDIV = styled.div`
     width: 200px !important;
-    height: 200px;
-    border: 1px solid grey;
+    height: 200px ;
     transition: transform 0.3s;
     margin: 0 10px 0 0;
+    border: 1px solid white;
+    border-radius: 20px;
+    background: white;
 
     &:hover {
         transform: scale(2.5) translateX(40%) translateY(40%);
+        transition: transform 0.3s ease; /* Add a smooth transition effect */
     }
+`
+const IMAGE = styled.img`
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+    border-radius: 20px;
 `
 const EACHUSERDIV = styled.div`
     border-bottom: 1px solid grey;
@@ -24,6 +33,7 @@ const INNEREACHUSERDIV = styled.div`
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 ` 
 const EACHUSERINFODIV = styled.div`
     text-align: left;
@@ -35,14 +45,29 @@ const H2 = styled.h2`
 `
 
 const VIDEO = styled.video`
-    width: 320px !important;
-    height: 220px;
+    height: 100%;
     border: 1px solid grey;
     border-radius: 20px;
+    object-fit: stretch;
+    background: black;
 
     &:hover {
         transform: scale(2.5) translateX(-40%) translateY(40%);
     }
+`
+
+const SNContainer = styled.div`
+    width: 50px;
+    height: 50px;
+    padding: 20px;
+    border: 1px solid red;
+    border-radius: 50px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 500;
 `
 
 const Files = () => {
@@ -52,17 +77,22 @@ const Files = () => {
 
     const handleSearch = e => {
         const term = e.target.value
+        if (term === "") {
+            setSearchResult([])
+            setSearchTerm('')
+        } else {
         setSearchTerm(term)
 
         const filteredResult = JsonData.filter(item => 
-        item['firstname'].toLowerCase().includes(term.toLowerCase()) || item['email'].toLowerCase().includes(term.toLowerCase()
+        item['firstname'].toLowerCase().startsWith(term.toLowerCase()) || item['email'].toLowerCase().startsWith(term.toLowerCase()
         ))
 
         setSearchResult(filteredResult)
+        }
     } 
     return (
     <Container style={{ width: '100%' }}>
-    <Form className="mt-4 mb-4">
+    <Form>
         <Form.Group >
         <FormControl type="text" placeholder="Search by name or email" value={searchTerm} onChange={handleSearch} />
         </Form.Group>
@@ -72,18 +102,30 @@ const Files = () => {
             searchResult.map((item, index) => (
                 <EACHUSERDIV key={index}>
                     <INNEREACHUSERDIV>
-                    <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
+                    <SNContainer>{item['S/N']}</SNContainer>
+                    <div>
+                        <H2 style={{textAlign: 'left'}}>{item['gender']}</H2>
+                        <IMAGEDIV>
+                            <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
+                        </IMAGEDIV>
+                        <H2 style={{textAlign: 'left'}}>{item['phonenumber']}</H2>
+                    </div>
                     <EACHUSERINFODIV>
-                        <H2>no. {item['S/N']}</H2>
-                        <H2>{item['firstname']} {item['lastname']} - {item['gender']}</H2>
+                        <H2 style={{color: 'red'}}>{item['firstname']} {item['lastname']}</H2>
+                        <H2>{item['email']}</H2> 
                         <H2>{item['country']} - {item['language']}</H2>
-                        <H2>{item['phonenumber']} - {item['email']}</H2> 
-                        <H2>{item['businessName']} - Of sector {item['sector']}, {item['subSector']}</H2>
+                        <H2> Business: {item['businessName']}</H2>
+                        <H2> Sector: {item['sector']}</H2>
+                        <H2> Sub-Sector: {item['subSector']}</H2>
+                        <div>
+                            <Button variant='danger' href={item['idCardRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Image</Button>
+                            <Button variant='danger' href={item['videoUrlRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
+                        </div>                        
                     </EACHUSERINFODIV>
                     </INNEREACHUSERDIV>
-                    <Button variant='secondary' href={item['idCardRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Image</Button>
-                    <Button variant='secondary' href={item['videoUrlRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
-                    <VIDEO src={item['videoUrl']} controls playsInline alt="user-video" />
+                    <div style={{width: '320px', height: '320px'}}>
+                        <VIDEO src={item['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
+                    </div>
                 </EACHUSERDIV>
             ))
         }
