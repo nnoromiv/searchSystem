@@ -92,15 +92,16 @@ const Files = () => {
         } else {
         setSearchTerm(term)
         const filteredResult = JsonData.filter((item) => {
+            const searchValue = item['firstname']+item['lastname']
             // Check if 'firstname' property is defined and not null or undefined
             if (item && item['firstname']) {
-                return item['firstname'].toLowerCase().startsWith(term.toLowerCase());
+                return searchValue.toLowerCase().startsWith(term.toLowerCase());
             }
             return false; // 'firstname' property is undefined or null, so filter it out
             });
 
         // Limit the filtered results to the first 10 items
-        const limitedResult = filteredResult.slice(0, 10);
+        const limitedResult = filteredResult.slice(0, 15);
 
         setSearchResult(limitedResult);
         }
