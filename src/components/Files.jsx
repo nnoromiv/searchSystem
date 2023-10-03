@@ -1,7 +1,8 @@
 import { Button, Container, Form, FormControl } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import JsonData from '../_data.json'
+import Preloader from './Preloader';
 
 const IMAGEDIV = styled.div`
     width: 200px !important;
@@ -74,6 +75,14 @@ const Files = () => {
 
     const [searchTerm, setSearchTerm] = useState('')
     const [searchResult, setSearchResult] = useState([])
+    const [load, setLoad] = useState(true)
+
+    useEffect(() => {
+    const timer = setTimeout(() => {
+        setLoad(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+    }, []);
 
     const handleSearch = e => {
         const term = e.target.value
@@ -82,54 +91,66 @@ const Files = () => {
             setSearchTerm('')
         } else {
         setSearchTerm(term)
+        const filteredResult = JsonData.filter((item) => {
+            // Check if 'firstname' property is defined and not null or undefined
+            if (item && item['firstname']) {
+                return item['firstname'].toLowerCase().startsWith(term.toLowerCase());
+            }
+            return false; // 'firstname' property is undefined or null, so filter it out
+            });
 
-        const filteredResult = JsonData.filter(item => 
-        item['firstname'].toLowerCase().startsWith(term.toLowerCase()) || item['email'].toLowerCase().startsWith(term.toLowerCase()
-        ))
+        // Limit the filtered results to the first 10 items
+        const limitedResult = filteredResult.slice(0, 10);
 
-        setSearchResult(filteredResult)
+        setSearchResult(limitedResult);
         }
     } 
     return (
     <Container style={{ width: '100%' }}>
     <Form>
         <Form.Group >
-        <FormControl type="text" placeholder="Search by name or email" value={searchTerm} onChange={handleSearch} />
+        <FormControl type="text" placeholder="Search by first name" value={searchTerm} onChange={handleSearch} />
         </Form.Group>
     </Form>
-    <div style={{ margin: '10px 40px ', width: '95%'}}>
+        <>
+        <Preloader load={load}/>
         {
-            searchResult.map((item, index) => (
-                <EACHUSERDIV key={index}>
-                    <INNEREACHUSERDIV>
-                    <SNContainer>{item['S/N']}</SNContainer>
-                    <div>
-                        <H2 style={{textAlign: 'left'}}>{item['gender']}</H2>
-                        <IMAGEDIV>
-                            <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
-                        </IMAGEDIV>
-                        <H2 style={{textAlign: 'left'}}>{item['phonenumber']}</H2>
-                    </div>
-                    <EACHUSERINFODIV>
-                        <H2 style={{color: 'red'}}>{item['firstname']} {item['lastname']}</H2>
-                        <H2>{item['email']}</H2> 
-                        <H2>{item['country']} - {item['language']}</H2>
-                        <H2> Business: {item['businessName']}</H2>
-                        <H2> Sector: {item['sector']}</H2>
-                        <H2> Sub-Sector: {item['subSector']}</H2>
+            !load &&
+            <div style={{ margin: '10px 40px ', width: '95%'}}>
+            {
+                searchResult.map((item, index) => (
+                    <EACHUSERDIV key={index}>
+                        <INNEREACHUSERDIV>
+                        <SNContainer>{item['S/N']}</SNContainer>
                         <div>
-                            <Button variant='danger' href={item['idCardRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Image</Button>
-                            <Button variant='danger' href={item['videoUrlRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
-                        </div>                        
-                    </EACHUSERINFODIV>
-                    </INNEREACHUSERDIV>
-                    <div style={{width: '320px', height: '320px'}}>
-                        <VIDEO src={item['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
-                    </div>
-                </EACHUSERDIV>
-            ))
+                            <H2 style={{textAlign: 'left'}}>{item['gender']}</H2>
+                            <IMAGEDIV>
+                                <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
+                            </IMAGEDIV>
+                            <H2 style={{textAlign: 'left'}}>{item['phonenumber']}</H2>
+                        </div>
+                        <EACHUSERINFODIV>
+                            <H2 style={{color: 'red'}}>{item['firstname']} {item['lastname']}</H2>
+                            <H2>{item['email']}</H2> 
+                            <H2>{item['country']} - {item['language']}</H2>
+                            <H2> Business: {item['businessName']}</H2>
+                            <H2> Sector: {item['sector']}</H2>
+                            <H2> Sub-Sector: {item['subSector']}</H2>
+                            <div>
+                                <Button variant='danger' href={item['idCardRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Image</Button>
+                                <Button variant='danger' href={item['videoUrlRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
+                            </div>                        
+                        </EACHUSERINFODIV>
+                        </INNEREACHUSERDIV>
+                        <div style={{width: '320px', height: '320px'}}>
+                            <VIDEO src={item['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
+                        </div>
+                    </EACHUSERDIV>
+                ))
+            }
+            </div>
         }
-        </div>
+        </>
     </Container>
     )
 }
