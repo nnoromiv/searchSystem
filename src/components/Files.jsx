@@ -1,29 +1,30 @@
 import { Button, Container, Form, FormControl } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import JsonData from '../_data.json'
+import JsonData from '../data.json'
 import Preloader from './Preloader';
 
-const IMAGEDIV = styled.div`
-    width: 200px !important;
-    height: 200px ;
-    transition: transform 0.3s;
-    margin: 0 10px 0 0;
-    border: 1px solid white;
-    border-radius: 20px;
-    background: white;
+// const IMAGEDIV = styled.div`
+//     width: 200px !important;
+//     height: 200px ;
+//     transition: transform 0.3s;
+//     margin: 0 10px 0 0;
+//     border: 1px solid white;
+//     border-radius: 20px;
+//     background: white;
 
-    &:hover {
-        transform: scale(2.5) translateX(40%) translateY(40%);
-        transition: transform 0.3s ease; /* Add a smooth transition effect */
-    }
-`
-const IMAGE = styled.img`
-    width: 100%;
-    height: 100%;
-    border: 1px solid white;
-    border-radius: 20px;
-`
+//     &:hover {
+//         transform: scale(2.5) translateX(40%) translateY(40%);
+//         transition: transform 0.3s ease; /* Add a smooth transition effect */
+//     }
+// `
+// const IMAGE = styled.img`
+//     width: 100%;
+//     height: 100%;
+//     border: 1px solid white;
+//     border-radius: 20px;
+// `
+
 const EACHUSERDIV = styled.div`
     border-bottom: 1px solid grey;
     padding: 10px;
@@ -92,7 +93,7 @@ const Files = () => {
         } else {
         setSearchTerm(term)
         const filteredResult = JsonData.filter((item) => {
-            const searchValue = item['First name']+item['Last name']
+            const searchValue = item['First name']+item['Last Name']
             // Check if 'firstname' property is defined and not null or undefined
             if (item && item['First name']) {
                 return searchValue.toLowerCase().startsWith(term.toLowerCase());
@@ -102,7 +103,6 @@ const Files = () => {
 
         // Limit the filtered results to the first 10 items
         const limitedResult = filteredResult.slice(0, 15);
-
         setSearchResult(limitedResult);
         }
     } 
@@ -125,13 +125,13 @@ const Files = () => {
                         <SNContainer>{item['S/N']}</SNContainer>
                         <div>
                             <H2 style={{textAlign: 'left'}}>{item['Gender']}</H2>
-                            <IMAGEDIV>
+                            {/* <IMAGEDIV>
                                 <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
-                            </IMAGEDIV>
+                            </IMAGEDIV> */}
                             <H2 style={{textAlign: 'left'}}>{item['Phone Number']}</H2>
                         </div>
                         <EACHUSERINFODIV>
-                            <H2 style={{color: 'red'}}>{item['First name']} {item['Last name']}</H2>
+                            <H2 style={{color: 'red'}}>{item['First name']} {item['Last Name']}</H2>
                             <H2>{item['Email address']}</H2> 
                             <H2>{item['Language']}</H2>
                             <H2> ID: {item['ID']}</H2>
