@@ -45,17 +45,17 @@ const H2 = styled.h2`
     font-weight: 800;
 `
 
-const VIDEO = styled.video`
-    height: 100%;
-    border: 1px solid grey;
-    border-radius: 20px;
-    object-fit: stretch;
-    background: black;
+// const VIDEO = styled.video`
+//     height: 100%;
+//     border: 1px solid grey;
+//     border-radius: 20px;
+//     object-fit: stretch;
+//     background: black;
 
-    &:hover {
-        transform: scale(2.5) translateX(-40%) translateY(40%);
-    }
-`
+//     &:hover {
+//         transform: scale(2.5) translateX(-40%) translateY(40%);
+//     }
+// `
 
 const SNContainer = styled.div`
     width: 50px;
@@ -92,9 +92,9 @@ const Files = () => {
         } else {
         setSearchTerm(term)
         const filteredResult = JsonData.filter((item) => {
-            const searchValue = item['firstname']+item['lastname']
+            const searchValue = item['First name']+item['Last name']
             // Check if 'firstname' property is defined and not null or undefined
-            if (item && item['firstname']) {
+            if (item && item['First name']) {
                 return searchValue.toLowerCase().startsWith(term.toLowerCase());
             }
             return false; // 'firstname' property is undefined or null, so filter it out
@@ -124,28 +124,27 @@ const Files = () => {
                         <INNEREACHUSERDIV>
                         <SNContainer>{item['S/N']}</SNContainer>
                         <div>
-                            <H2 style={{textAlign: 'left'}}>{item['gender']}</H2>
+                            <H2 style={{textAlign: 'left'}}>{item['Gender']}</H2>
                             <IMAGEDIV>
                                 <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
                             </IMAGEDIV>
-                            <H2 style={{textAlign: 'left'}}>{item['phonenumber']}</H2>
+                            <H2 style={{textAlign: 'left'}}>{item['Phone Number']}</H2>
                         </div>
                         <EACHUSERINFODIV>
-                            <H2 style={{color: 'red'}}>{item['firstname']} {item['lastname']}</H2>
-                            <H2>{item['email']}</H2> 
-                            <H2>{item['country']} - {item['language']}</H2>
-                            <H2> Business: {item['businessName']}</H2>
-                            <H2> Sector: {item['sector']}</H2>
-                            <H2> Sub-Sector: {item['subSector']}</H2>
+                            <H2 style={{color: 'red'}}>{item['First name']} {item['Last name']}</H2>
+                            <H2>{item['Email address']}</H2> 
+                            <H2>{item['Language']}</H2>
+                            <H2> ID: {item['ID']}</H2>
+                            <H2> Country: {item['Business country']}</H2>
                             <div>
-                                <Button variant='danger' href={item['idCardRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Image</Button>
-                                <Button variant='danger' href={item['videoUrlRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
+                                <Button variant='danger' href={item['Business plan submission link']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Business Plan</Button>
+                                {/* <Button variant='danger' href={item['videoUrlRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button> */}
                             </div>                        
                         </EACHUSERINFODIV>
                         </INNEREACHUSERDIV>
-                        <div style={{width: '320px', height: '320px'}}>
+                        {/* <div style={{width: '320px', height: '320px'}}>
                             <VIDEO src={item['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
-                        </div>
+                        </div> */}
                     </EACHUSERDIV>
                 ))
             }
