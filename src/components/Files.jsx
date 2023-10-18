@@ -93,9 +93,9 @@ const Files = () => {
         } else {
         setSearchTerm(term)
         const filteredResult = JsonData.filter((item) => {
-            const searchValue = item['First name']+item['Last Name']
+            const searchValue = item['firstName']+item['lastName']
             // Check if 'firstname' property is defined and not null or undefined
-            if (item && item['First name']) {
+            if (item && item['firstName']) {
                 return searchValue.toLowerCase().startsWith(term.toLowerCase());
             }
             return false; // 'firstname' property is undefined or null, so filter it out
@@ -122,23 +122,23 @@ const Files = () => {
                 searchResult.map((item, index) => (
                     <EACHUSERDIV key={index}>
                         <INNEREACHUSERDIV>
-                        <SNContainer>{item['S/N']}</SNContainer>
+                        <SNContainer>{item['s/n']}</SNContainer>
                         <div>
                             <H2 style={{textAlign: 'left'}}>{item['Gender']}</H2>
                             {/* <IMAGEDIV>
                                 <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
                             </IMAGEDIV> */}
-                            <H2 style={{textAlign: 'left'}}>{item['Phone Number']}</H2>
+                            <H2 style={{textAlign: 'left'}}>{item['number']}</H2>
                         </div>
                         <EACHUSERINFODIV>
-                            <H2 style={{color: 'red'}}>{item['First name']} {item['Last Name']}</H2>
-                            <H2>{item['Email address']}</H2> 
-                            <H2>{item['Language']}</H2>
-                            <H2> ID: {item['ID']}</H2>
-                            <H2> Country: {item['Business country']}</H2>
+                            <H2 style={{color: 'red'}}>{item['firstName']} {item['lastName']}</H2>
+                            <H2>{item['email']} - {item['businessName']}</H2> 
+                            <H2>{item['language']}</H2>
+                            <H2> ID: {item['id']}</H2>
+                            <H2> Country: {item['country']}</H2>
                             <div>
-                                <Button variant='danger' href={item['Business plan submission link']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Business Plan</Button>
-                                {/* <Button variant='danger' href={item['videoUrlRedundant']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button> */}
+                                <Button variant='danger' href={item['businessPlan']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Business Plan</Button>
+                                <Button variant='danger' href={item['videoLink']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
                             </div>                        
                         </EACHUSERINFODIV>
                         </INNEREACHUSERDIV>
