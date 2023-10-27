@@ -4,74 +4,125 @@ import styled from 'styled-components';
 import JsonData from '../data.json'
 import Preloader from './Preloader';
 
-// const IMAGEDIV = styled.div`
-//     width: 200px !important;
-//     height: 200px ;
-//     transition: transform 0.3s;
-//     margin: 0 10px 0 0;
-//     border: 1px solid white;
-//     border-radius: 20px;
-//     background: white;
-
-//     &:hover {
-//         transform: scale(2.5) translateX(40%) translateY(40%);
-//         transition: transform 0.3s ease; /* Add a smooth transition effect */
-//     }
-// `
-// const IMAGE = styled.img`
-//     width: 100%;
-//     height: 100%;
-//     border: 1px solid white;
-//     border-radius: 20px;
-// `
-
-const EACHUSERDIV = styled.div`
-    border-bottom: 1px solid grey;
-    padding: 10px;
+const Body = styled.header`
+    margin: 10px 40px;
+    width: 95%;
+`
+const Section = styled.section`
     display: flex;
-    justify-content: space-between;
-` 
-const INNEREACHUSERDIV = styled.div`
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-` 
-const EACHUSERINFODIV = styled.div`
-    text-align: left;
 `
 
-const H2 = styled.h2`
-    font-size: 24px;
-    font-weight: 800;
+const CardOuter = styled.div`
+    border-radius: 14px;
+    width: fit-content;
+    height: fit-content;
+    background-color: #F14D42;
 `
 
-// const VIDEO = styled.video`
-//     height: 100%;
-//     border: 1px solid grey;
-//     border-radius: 20px;
-//     object-fit: stretch;
-//     background: black;
-
-//     &:hover {
-//         transform: scale(2.5) translateX(-40%) translateY(40%);
-//     }
-// `
-
-const SNContainer = styled.div`
-    width: 50px;
-    height: 50px;
-    padding: 20px;
-    border: 1px solid red;
-    border-radius: 50px;
-    background-color: red;
+const CardTop = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px; 
+`
+
+const TefId = styled.h1`
     color: white;
-    font-weight: 500;
+    font-size: 28px;
+    text-align: left;
+    font-weight: 700;
 `
 
+const Gender = styled.h2`
+    color: #DC1B21;
+    font-size: 28px;
+    text-align: right;
+    font-weight: 900;
+`
+
+const CardInner = styled.div`
+    border-radius: 10px;
+    margin: 15px;
+    border: 1px solid white;
+    height: fit-content;
+    background-color: #FFFFFF;
+`
+
+const Info = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 2px 10px;
+    text-align: left
+`
+
+const Language = styled.h1`
+    color: #DC1B21;
+    font-size: 28px;
+    text-align: right;
+    font-weight: 900;
+`
+
+const Title = styled.h1`
+    color: #DC1B21;
+    font-size: 20px;
+    font-weight: 900;
+`
+
+const Content = styled.h1`
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+`
+
+
+const ContainOthers = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+`
+
+const Media =  styled.div`
+    display: flex;
+    justify-content: space-around;
+`
+
+const Zoom = styled.div`
+    width: 320px !important;
+    height: 320px ;
+    transition: transform 0.3s;
+    margin: 0 10px 0 0;
+    border: 1px solid white;
+    border-radius: 20px;
+    background: white;
+
+    &:hover {
+        transform: scale(2.5) translateX(40%) translateY(40%);
+        transition: transform 0.3s ease; /* Add a smooth transition effect */
+    }
+`
+const Image = styled.img`
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+    border-radius: 20px;
+`
+
+
+const Video = styled.video`
+    height: 320px;
+    border: 1px solid grey;
+    border-radius: 20px;
+    object-fit: stretch;
+    background: black;
+
+    &:hover {
+        transform: scale(2.5) translateX(-40%) translateY(40%);
+    }
+`
+
+const RedundantButton = styled.div`
+    display: flex;
+    margin: 50px 0
+`
 const Files = () => {
 
     const [searchTerm, setSearchTerm] = useState('')
@@ -117,38 +168,78 @@ const Files = () => {
         <Preloader load={load}/>
         {
             !load &&
-            <div style={{ margin: '10px 40px ', width: '95%'}}>
+            <Body>
             {
-                searchResult.map((item, index) => (
-                    <EACHUSERDIV key={index}>
-                        <INNEREACHUSERDIV>
-                        <SNContainer>{item['s/n']}</SNContainer>
-                        <div>
-                            <H2 style={{textAlign: 'left'}}>{item['Gender']}</H2>
-                            {/* <IMAGEDIV>
-                                <IMAGE src={item['idCard']} srcSet="" alt="user-id" />
-                            </IMAGEDIV> */}
-                            <H2 style={{textAlign: 'left'}}>{item['number']}</H2>
-                        </div>
-                        <EACHUSERINFODIV>
-                            <H2 style={{color: 'red'}}>{item['firstName']} {item['lastName']}</H2>
-                            <H2>{item['email']} - {item['businessName']}</H2> 
-                            <H2>{item['language']}</H2>
-                            <H2> ID: {item['id']}</H2>
-                            <H2> Country: {item['country']}</H2>
-                            <div>
-                                <Button variant='danger' href={item['businessPlan']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Business Plan</Button>
-                                <Button variant='danger' href={item['videoLink']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
-                            </div>                        
-                        </EACHUSERINFODIV>
-                        </INNEREACHUSERDIV>
-                        {/* <div style={{width: '320px', height: '320px'}}>
-                            <VIDEO src={item['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
-                        </div> */}
-                    </EACHUSERDIV>
+                searchResult.map((result, index) => (
+                    <Section key={index}>
+                        <CardOuter>
+                            <CardTop>
+                                <TefId>{result['_id']}</TefId>
+                                <Gender>{result['gender']}</Gender> 
+                            </CardTop>
+                            <CardInner>
+                                <Info>
+                                    <Language>{result['language']}</Language>
+                                    <div>
+                                        <Title>Name</Title>
+                                        <Content>{result['lastName']}{result['firstName']}</Content>
+                                    </div>
+                                </Info>
+                                <Info>
+                                    <div>
+                                        <Title>Email</Title>
+                                        <Content>{result['email']}</Content>
+                                    </div>
+                                </Info>
+                                <Info>
+                                    <div>
+                                        <Title>Phone Number</Title>
+                                        <Content>{result['phoneNumber']}</Content>
+                                    </div>
+                                </Info>
+                                <Info>
+                                    <div>
+                                        <Title>Business Name</Title>
+                                        <Content>{result['businessName']}</Content>
+                                    </div>
+                                </Info>
+                                <Info>
+                                    <div>
+                                        <Title>Address</Title>
+                                        <Content>{result['businessAddress']}, {result['businessState']}<br />{result['businessCountry']}</Content>
+                                    </div>
+                                </Info>
+                                <Info>
+                                    <div>
+                                        <Title>Business Sector - Industry Sub Sector</Title>
+                                        <Content>{result['businessSector']} - {result['industrySubSector']}</Content>
+                                    </div>
+                                </Info>
+                                <Info>
+                                    <div>
+                                        <Title>is Business Registered</Title>
+                                        <Content>{result['isBusinessRegistered']}</Content>
+                                    </div>
+                                </Info>
+                            </CardInner>
+                        </CardOuter>
+                        <ContainOthers>
+                            <Media>
+                                <Zoom>
+                                    <Image src={result['idCard']}  srcSet="" alt="user-id" />
+                                </Zoom>
+                                    <Video src={result['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
+                            </Media>
+                            <RedundantButton>
+                                    <Button variant='danger' href={result['businessPlan']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Business Plan</Button>
+                                    <Button variant='danger' href={result['buttonVideoUrl']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
+                                    <Button variant='danger' href={result['buttonIdCard']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View ID Card</Button>
+                            </RedundantButton>
+                        </ContainOthers>
+                    </Section>
                 ))
             }
-            </div>
+            </Body>
         }
         </>
     </Container>
