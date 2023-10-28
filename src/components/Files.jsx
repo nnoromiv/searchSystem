@@ -148,6 +148,12 @@ const Image = styled.img`
         height: 250px;
     }
 
+    @media screen and (max-width: 769px){        
+        &:hover {
+            transform: scale(1.3);
+        }
+    }
+
     @media screen and (max-width: 500px){
         width: 80vw;
     }
@@ -175,6 +181,12 @@ const Video = styled.video`
         margin: 0 0 10px 0;
         width: 100% !important;
         height: 250px;
+    }
+
+    @media screen and (max-width: 769px){        
+        &:hover {
+            transform: scale(1.3);
+        }
     }
 
     @media screen and (max-width: 500px){
