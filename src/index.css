@@ -12,3 +12,34 @@
   font-family: 'DM Serif Display', serif;
   font-family: 'Rubik', sans-serif;
 }
+
+body {
+  background: #f4f4f4;
+}
+
+form {
+  width: 100%;
+}
+
+#searchBar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 30px 20px;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 0 0 10px 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.container {
+  @media screen and  (max-width: 1025px){
+    margin: 10px 20px;
+  }
+
+  @media screen and  (max-width: 500px){
+    margin: 10px;
+  }
+}

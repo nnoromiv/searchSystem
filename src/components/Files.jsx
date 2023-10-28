@@ -1,22 +1,46 @@
 import { Button, Container, Form, FormControl } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import JsonData from '../data.json'
+import JsonData from '../_data.json'
 import Preloader from './Preloader';
+import LookImage from '../assets/photographer.svg'
 
 const Body = styled.header`
-    margin: 10px 40px;
-    width: 95%;
+    width: 100%;
+    margin: 30px 0 0 0;
 `
 const Section = styled.section`
+    width: 100%;
     display: flex;
+    padding: 20px;
+    margin: 0 0 20px 0;
+    background: rgba( 241, 77, 66, 0.2 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 8.5px );
+    -webkit-backdrop-filter: blur( 8.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+    @media screen and (max-width: 500px){
+        display: grid;
+        grid-template: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: 340px){
+        padding: 10px;
+    }
 `
 
 const CardOuter = styled.div`
     border-radius: 14px;
-    width: fit-content;
+    width: 50%;
     height: fit-content;
     background-color: #F14D42;
+
+    @media screen and (max-width: 500px){
+        margin: 0 0 10px 0;
+        width: 85vw;
+    }
 `
 
 const CardTop = styled.div`
@@ -65,17 +89,32 @@ const Title = styled.h1`
     color: #DC1B21;
     font-size: 20px;
     font-weight: 900;
+
+    @media screen and (max-width: 340px){
+        font-size: 18px
+    }
 `
 
 const Content = styled.h1`
     color: black;
     font-size: 20px;
     font-weight: 700;
+    white-space: normal;
+    word-wrap: break-word;
+
+    @media screen and (max-width: 500px){
+        font-size: 18px
+    }
+
+    @media screen and (max-width: 340px){
+        font-size: 16px
+    }
 `
 
 
 const ContainOthers = styled.div`
     display: flex;
+    width: 50%;
     flex-direction: column;
     margin: 0 10px;
 `
@@ -83,31 +122,45 @@ const ContainOthers = styled.div`
 const Media =  styled.div`
     display: flex;
     justify-content: space-around;
+    gap: 1%;
+
+    @media screen and (max-width: 1025px){
+        flex-direction: column;
+    }
 `
 
-const Zoom = styled.div`
-    width: 320px !important;
-    height: 320px ;
-    transition: transform 0.3s;
-    margin: 0 10px 0 0;
+const Image = styled.img`
+    width: 50%;
+    height: 320px;
     border: 1px solid white;
     border-radius: 20px;
+    transition: transform 0.3s ease;
     background: white;
 
     &:hover {
-        transform: scale(2.5) translateX(40%) translateY(40%);
-        transition: transform 0.3s ease; /* Add a smooth transition effect */
+        transform: scale(2) translateX(40%) translateY(40%);
+    }
+
+    
+    @media screen and (max-width: 1025px){
+        margin: 0 0 10px 0;
+        width: 100%;
+        height: 250px;
+    }
+
+    @media screen and (max-width: 500px){
+        width: 80vw;
     }
 `
-const Image = styled.img`
+
+const NullImage = styled.img`
     width: 100%;
-    height: 100%;
-    border: 1px solid white;
-    border-radius: 20px;
+    height: 600px;
 `
 
 
 const Video = styled.video`
+    width: 50%;
     height: 320px;
     border: 1px solid grey;
     border-radius: 20px;
@@ -115,13 +168,28 @@ const Video = styled.video`
     background: black;
 
     &:hover {
-        transform: scale(2.5) translateX(-40%) translateY(40%);
+        transform: scale(2) translateX(-40%) translateY(40%);
+    }
+
+    @media screen and (max-width: 1025px){
+        margin: 0 0 10px 0;
+        width: 100% !important;
+        height: 250px;
+    }
+
+    @media screen and (max-width: 500px){
+        width: 80vw !important;
     }
 `
 
 const RedundantButton = styled.div`
     display: flex;
-    margin: 50px 0
+    margin: 50px 0;
+
+    @media screen and (max-width: 500px){
+        margin: 20px 0;
+        width: 80vw;
+    }
 `
 const Files = () => {
 
@@ -157,19 +225,24 @@ const Files = () => {
         setSearchResult(limitedResult);
         }
     } 
+
+    
     return (
-    <Container style={{ width: '100%' }}>
-    <Form>
+    <Container >
+    <Form id="searchBar">
         <Form.Group >
-        <FormControl type="text" placeholder="Search by first name" value={searchTerm} onChange={handleSearch} />
+        <FormControl type="text" placeholder="Search with first name and last name" value={searchTerm} onChange={handleSearch} />
         </Form.Group>
     </Form>
         <>
         <Preloader load={load}/>
         {
             !load &&
-            <Body>
+            <Body >
             {
+                searchResult.length === 0 ?
+                <NullImage src={LookImage} srcSet="" />
+                :
                 searchResult.map((result, index) => (
                     <Section key={index}>
                         <CardOuter>
@@ -180,9 +253,9 @@ const Files = () => {
                             <CardInner>
                                 <Info>
                                     <Language>{result['language']}</Language>
-                                    <div>
+                                    <div style={{textAlign: 'right'}}>
                                         <Title>Name</Title>
-                                        <Content>{result['lastName']}{result['firstName']}</Content>
+                                        <Content>{result['lastName']}{' '}{result['firstName']}</Content>
                                     </div>
                                 </Info>
                                 <Info>
@@ -225,15 +298,13 @@ const Files = () => {
                         </CardOuter>
                         <ContainOthers>
                             <Media>
-                                <Zoom>
-                                    <Image src={result['idCard']}  srcSet="" alt="user-id" />
-                                </Zoom>
-                                    <Video src={result['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
+                                <Image src={result['idCard']}  srcSet="" alt="userimage" />
+                                <Video src={result['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
                             </Media>
                             <RedundantButton>
-                                    <Button variant='danger' href={result['businessPlan']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Business Plan</Button>
-                                    <Button variant='danger' href={result['buttonVideoUrl']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View Video</Button>
-                                    <Button variant='danger' href={result['buttonIdCard']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >View ID Card</Button>
+                                    <Button variant='danger' href={result['businessPlan']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Plan</Button>
+                                    <Button variant='danger' href={result['buttonVideoUrl']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Video</Button>
+                                    <Button variant='danger' href={result['buttonIdCard']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >ID Card</Button>
                             </RedundantButton>
                         </ContainOthers>
                     </Section>
