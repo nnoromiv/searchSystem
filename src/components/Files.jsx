@@ -290,11 +290,11 @@ const Files = () => {
                                 </Info>
                                 <Info>
                                     <div>
-                                        <Title>Address</Title>
-                                        <Content>{result['businessAddress']}, {result['businessState']}<br />{result['businessCountry']}</Content>
+                                        <Title>Country</Title>
+                                        <Content>{result['businessCountry']}</Content>
                                     </div>
                                 </Info>
-                                <Info>
+                                {/* <Info>
                                     <div>
                                         <Title>Business Sector - Industry Sub Sector</Title>
                                         <Content>{result['businessSector']} - {result['industrySubSector']}</Content>
@@ -305,7 +305,7 @@ const Files = () => {
                                         <Title>is Business Registered</Title>
                                         <Content>{result['isBusinessRegistered']}</Content>
                                     </div>
-                                </Info>
+                                </Info> */}
                             </CardInner>
                         </CardOuter>
                         <ContainOthers>
