@@ -1,7 +1,6 @@
 # TefVerify
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/nnoromiv/tefverify.svg?style=social)](https://x.com/nnoromiv)
 
 ## Description
