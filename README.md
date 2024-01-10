@@ -1,14 +1,15 @@
 # TefVerify
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/nnoromiv/tefverify.svg)](https://github.com/nnoromiv/tefverify/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/nnoromiv/tefverify.svg)](https://github.com/nnoromiv/tefverify/issues)
-[![GitHub forks](https://img.shields.io/github/forks/nnoromiv/tefverify.svg)](https://github.com/nnoromiv/tefverify/network)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/nnoromiv/tefverify.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20TefVerify%20on%20GitHub:%20https://github.com/nnoromiv/tefverify)
+[![GitHub stars](https://img.shields.io/github/stars/nnoromiv/tefverify.svg)]
+[![GitHub issues](https://img.shields.io/github/issues/nnoromiv/tefverify.svg)]
+[![GitHub forks](https://img.shields.io/github/forks/nnoromiv/tefverify.svg)]
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/nnoromiv/tefverify.svg?style=social)](https://x.com/nnoromiv)
 
 ## Description
 
 TefVerify is a search website that takes millions of data and retrieves the data based on user search query.
+
 ![Preview](public/preview.png)
 
 ## Features

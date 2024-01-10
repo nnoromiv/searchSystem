@@ -1,7 +1,7 @@
 import { Button, Container, Form, FormControl } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import JsonData from '../_data.json'
+import JsonData from '../data.json'
 import Preloader from './Preloader';
 import LookImage from '../assets/photographer.svg'
 
@@ -225,11 +225,11 @@ const Files = () => {
         setSearchTerm(term)
         const filteredResult = JsonData.filter((item) => {
             const searchValue = item['firstName']+item['lastName']
-            // Check if 'firstname' property is defined and not null or undefined
+            // Check if 'firstName' property is defined and not null or undefined
             if (item && item['firstName']) {
                 return searchValue.toLowerCase().startsWith(term.toLowerCase());
             }
-            return false; // 'firstname' property is undefined or null, so filter it out
+            return false; // 'firstName' property is undefined or null, so filter it out
             });
 
         // Limit the filtered results to the first 10 items
@@ -310,7 +310,7 @@ const Files = () => {
                         </CardOuter>
                         <ContainOthers>
                             <Media>
-                                <Image src={result['idCard']}  srcSet="" alt="userimage" />
+                                <Image src={result['idCard']}  srcSet="" alt="userImage" />
                                 <Video src={result['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
                             </Media>
                             <RedundantButton>
