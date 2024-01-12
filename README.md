@@ -1,11 +1,11 @@
-# TefVerify
+# Search System
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/nnoromiv/tefverify.svg?style=social)](https://x.com/nnoromiv)
 
 ## Description
 
-TefVerify is a search website that takes millions of data and retrieves the data based on user search query.
+This is a search website that takes millions of data and retrieves the data based on user search query.
 
 ![Preview](public/preview.png)
 
