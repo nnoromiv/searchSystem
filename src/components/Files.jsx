@@ -1,7 +1,7 @@
 import { Button, Container, Form, FormControl } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import JsonData from '../data.json'
+import JsonData from '../_data.json'
 import Preloader from './Preloader';
 import LookImage from '../assets/photographer.svg'
 
@@ -225,11 +225,11 @@ const Files = () => {
         setSearchTerm(term)
         const filteredResult = JsonData.filter((item) => {
             const searchValue = item['firstName']+item['lastName']
-            // Check if 'firstName' property is defined and not null or undefined
+            // Check if 'firstname' property is defined and not null or undefined
             if (item && item['firstName']) {
                 return searchValue.toLowerCase().startsWith(term.toLowerCase());
             }
-            return false; // 'firstName' property is undefined or null, so filter it out
+            return false; // 'firstname' property is undefined or null, so filter it out
             });
 
         // Limit the filtered results to the first 10 items
@@ -251,78 +251,66 @@ const Files = () => {
         {
             !load &&
             <Body >
-            {
-                searchResult.length === 0 ?
-                <NullImage src={LookImage} srcSet="" />
-                :
-                searchResult.map((result, index) => (
-                    <Section key={index}>
-                        <CardOuter>
-                            <CardTop>
-                                <TefId>{result['_id']}</TefId>
-                                <Gender>{result['gender']}</Gender> 
-                            </CardTop>
-                            <CardInner>
-                                <Info>
-                                    <Language>{result['language']}</Language>
-                                    <div style={{textAlign: 'right'}}>
-                                        <Title>Name</Title>
-                                        <Content>{result['lastName']}{' '}{result['firstName']}</Content>
-                                    </div>
-                                </Info>
-                                <Info>
-                                    <div>
-                                        <Title>Email</Title>
-                                        <Content>{result['email']}</Content>
-                                    </div>
-                                </Info>
-                                <Info>
-                                    <div>
-                                        <Title>Phone Number</Title>
-                                        <Content>{result['phoneNumber']}</Content>
-                                    </div>
-                                </Info>
-                                <Info>
-                                    <div>
-                                        <Title>Business Name</Title>
-                                        <Content>{result['businessName']}</Content>
-                                    </div>
-                                </Info>
-                                <Info>
-                                    <div>
-                                        <Title>Country</Title>
-                                        <Content>{result['businessCountry']}</Content>
-                                    </div>
-                                </Info>
-                                {/* <Info>
-                                    <div>
-                                        <Title>Business Sector - Industry Sub Sector</Title>
-                                        <Content>{result['businessSector']} - {result['industrySubSector']}</Content>
-                                    </div>
-                                </Info>
-                                <Info>
-                                    <div>
-                                        <Title>is Business Registered</Title>
-                                        <Content>{result['isBusinessRegistered']}</Content>
-                                    </div>
-                                </Info> */}
-                            </CardInner>
-                        </CardOuter>
-                        <ContainOthers>
-                            <Media>
-                                <Image src={result['idCard']}  srcSet="" alt="userImage" />
-                                <Video src={result['videoUrl']} style={{width: '320px'}} controls playsInline alt="user-video" />
-                            </Media>
-                            <RedundantButton>
-                                    <Button variant='danger' href={result['businessPlan']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Plan</Button>
-                                    <Button variant='danger' href={result['buttonVideoUrl']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >Video</Button>
-                                    <Button variant='danger' href={result['buttonIdCard']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >ID Card</Button>
-                            </RedundantButton>
-                        </ContainOthers>
-                    </Section>
-                ))
-            }
-            </Body>
+    {
+        searchResult.length === 0 ?
+        <NullImage src={LookImage} srcSet="" />
+        :
+        searchResult.map((result, index) => (
+            <div>
+            <Section key={index}>
+                <CardOuter>
+                    <CardTop>
+                        <TefId>{result['_id']}</TefId>
+                        <Gender>{result['gender']}</Gender> 
+                        
+                    </CardTop>
+                    
+                    <CardInner>
+                        <Info>
+                            <Language>{result['Language']}</Language>
+                            <div style={{textAlign: 'right'}}>
+                                <Title>Name</Title>
+                                <Content>{result['lastName']}{' '}{result['firstName']}</Content>
+                            </div>
+                        </Info>
+                        <Info>
+                            <div>
+                                <Title>Email</Title>
+                                <Content>{result['email']}</Content>
+                            </div>
+                        </Info>
+                        <Info>
+                            <div>
+                                <Title>Phone Number</Title>
+                                <Content>{result['phoneNumber']}</Content>
+                            </div>
+                        </Info>
+                        
+                        <Info>
+                            <div>
+                                <Title>Country</Title>
+                                <Content>{result['Country']}</Content>
+                            </div>
+                        </Info>
+                    </CardInner>
+                </CardOuter>
+                <ContainOthers>
+                    <Media>
+                        <Image src={result['Upload headshot']}  srcSet="" alt="userimage" />
+                        <Image src={result['Upload valid govt approved ID card']}  srcSet="" alt="idcard" />
+                    </Media>
+                 
+                    <RedundantButton>
+                            <Button variant='danger' href={result['Upload valid govt approved ID card']} target='_blank' style={{ height: '100%', width: '180px', margin: '0 10px'}} >ID Card</Button>
+                    </RedundantButton>
+                </ContainOthers> <br />
+                
+            </Section>
+            
+            </div>
+        ))
+    }
+</Body>
         }
         </>
     </Container>
